@@ -36,6 +36,29 @@ class CollectionViewController: UICollectionViewController {
       cell.last_name.text = dato.last_name
       cell.email.text = dato.email
       cell.row = indexPath.row
+      
+      let session = URLSession.shared
+      let tarea = session.dataTask(with: dato.avatar) {
+         (data:Data?, response:URLResponse?, error:Error?) in
+         guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
+            if let error = error {
+               print("Error de red: \(error)")
+            }
+            return
+         }
+         if response.statusCode == 200 {
+            let imagen = UIImage(data: data)
+            DispatchQueue.main.async {
+               if self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                  cell.imagen.image = imagen
+               }
+            }
+         } else {
+            print("Error de código \(response.statusCode)")
+         }
+      }
+      tarea.resume()
+      
       return cell
    }
    

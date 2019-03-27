@@ -36,6 +36,7 @@ class Tabla1ViewController: UITableViewController {
       
       cell.textLabel?.text = "\(datos.last_name), \(datos.first_name)"
       cell.detailTextLabel?.text = datos.email
+      cell.imageView?.image = UIImage(named: "apple")
       
       let session = URLSession.shared
       let tarea = session.dataTask(with: datos.avatar) {
@@ -49,7 +50,11 @@ class Tabla1ViewController: UITableViewController {
          if response.statusCode == 200 {
             let imagen = UIImage(data: data)
             DispatchQueue.main.async {
-               cell.imageView?.image = imagen
+               if let visibles = self.tableView.indexPathsForVisibleRows {
+                  if visibles.contains(indexPath) {
+                     cell.imageView?.image = imagen
+                  }
+               }
             }
          } else {
             print("Error de código \(response.statusCode)")
