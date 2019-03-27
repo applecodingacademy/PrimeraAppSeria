@@ -10,6 +10,8 @@ import UIKit
 
 class Tabla1ViewController: UITableViewController {
    
+   var variable:Int = 0
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       loadData()
@@ -35,6 +37,25 @@ class Tabla1ViewController: UITableViewController {
       cell.textLabel?.text = "\(datos.last_name), \(datos.first_name)"
       cell.detailTextLabel?.text = datos.email
       
+      let session = URLSession.shared
+      let tarea = session.dataTask(with: datos.avatar) {
+         (data:Data?, response:URLResponse?, error:Error?) in
+         guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
+            if let error = error {
+               print("Error de red: \(error)")
+            }
+            return
+         }
+         if response.statusCode == 200 {
+            let imagen = UIImage(data: data)
+            DispatchQueue.main.async {
+               cell.imageView?.image = imagen
+            }
+         } else {
+            print("Error de código \(response.statusCode)")
+         }
+      }
+      tarea.resume()
       return cell
    }
    
@@ -69,6 +90,7 @@ class Tabla1ViewController: UITableViewController {
             return
          }
          destination.fila = indexPath.row
+         destination.imagenTmp = celda.imageView?.image
       }
    }
    

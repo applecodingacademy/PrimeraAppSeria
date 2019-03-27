@@ -8,6 +8,3 @@
 
 import Foundation
 
-func ff() {
-   
-}

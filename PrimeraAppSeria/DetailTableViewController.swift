@@ -15,6 +15,7 @@ class DetailTableViewController: UITableViewController {
    @IBOutlet weak var imagen: UIImageView!
    
    var fila:Int?
+   var imagenTmp:UIImage?
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -23,6 +24,9 @@ class DetailTableViewController: UITableViewController {
          nombre.text = datos.first_name
          apellidos.text = datos.last_name
          email.text = datos.email
+      }
+      if let avatar = imagenTmp {
+         imagen.image = avatar
       }
    }
    @IBAction func validarSave(_ sender: UIBarButtonItem) {
