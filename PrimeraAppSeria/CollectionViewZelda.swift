@@ -14,6 +14,7 @@ class CollectionViewZelda: UICollectionViewCell {
    @IBOutlet weak var last_name: UILabel!
    @IBOutlet weak var first_name: UILabel!
    @IBOutlet weak var imagen: UIImageView!
+   var row:Int?
    
    override func awakeFromNib() {
       layer.cornerRadius = 4.0

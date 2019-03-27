@@ -14,6 +14,8 @@
 		5A8888492244E30600A1556E /* TableViewZelda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A8888482244E30600A1556E /* TableViewZelda.swift */; };
 		5A88884B2245036D00A1556E /* CollectionViewZelda.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88884A2245036D00A1556E /* CollectionViewZelda.swift */; };
 		5A88884D2245066700A1556E /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A88884C2245066700A1556E /* CollectionViewController.swift */; };
+		5A938EC322490452006BF5BC /* Table3DetalleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A938EC222490452006BF5BC /* Table3DetalleViewController.swift */; };
+		5AB3D542224A503E0089B22F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D541224A503E0089B22F /* Network.swift */; };
 		5ADD20B922425C9200D210CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD20B822425C9200D210CF /* AppDelegate.swift */; };
 		5ADD20BE22425C9200D210CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ADD20BC22425C9200D210CF /* Main.storyboard */; };
 		5ADD20C022425CA900D210CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ADD20BF22425CA900D210CF /* Assets.xcassets */; };
@@ -31,6 +33,8 @@
 		5A8888482244E30600A1556E /* TableViewZelda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableViewZelda.swift; sourceTree = "<group>"; };
 		5A88884A2245036D00A1556E /* CollectionViewZelda.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewZelda.swift; sourceTree = "<group>"; };
 		5A88884C2245066700A1556E /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		5A938EC222490452006BF5BC /* Table3DetalleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table3DetalleViewController.swift; sourceTree = "<group>"; };
+		5AB3D541224A503E0089B22F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
 		5ADD20B522425C9200D210CF /* PrimeraAppSeria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrimeraAppSeria.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ADD20B822425C9200D210CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5ADD20BD22425C9200D210CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -74,6 +78,8 @@
 			children = (
 				5ADD20B822425C9200D210CF /* AppDelegate.swift */,
 				5ADD20BC22425C9200D210CF /* Main.storyboard */,
+				5A938EC222490452006BF5BC /* Table3DetalleViewController.swift */,
+				5AB3D541224A503E0089B22F /* Network.swift */,
 				5A88884C2245066700A1556E /* CollectionViewController.swift */,
 				5A88884A2245036D00A1556E /* CollectionViewZelda.swift */,
 				5A8888482244E30600A1556E /* TableViewZelda.swift */,
@@ -165,9 +171,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A88884D2245066700A1556E /* CollectionViewController.swift in Sources */,
+				5A938EC322490452006BF5BC /* Table3DetalleViewController.swift in Sources */,
 				5A6C55EF22438B2E00A07D83 /* DetailTableViewController.swift in Sources */,
 				5ADD20CF224268C600D210CF /* Model.swift in Sources */,
 				5A8888492244E30600A1556E /* TableViewZelda.swift in Sources */,
+				5AB3D542224A503E0089B22F /* Network.swift in Sources */,
 				5A88884B2245036D00A1556E /* CollectionViewZelda.swift in Sources */,
 				5A6C55F12243B1FF00A07D83 /* Helper.swift in Sources */,
 				5ADD20B922425C9200D210CF /* AppDelegate.swift in Sources */,

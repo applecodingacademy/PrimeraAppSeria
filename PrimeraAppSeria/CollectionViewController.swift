@@ -13,8 +13,8 @@ class CollectionViewController: UICollectionViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       self.clearsSelectionOnViewWillAppear = false
-      if mockdata.isEmpty {
-         loadData()
+      if moredata.isEmpty {
+         loadDataMore()
       }
    }
    
@@ -31,11 +31,26 @@ class CollectionViewController: UICollectionViewController {
    
    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
       let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "zeldaCol", for: indexPath) as! CollectionViewZelda
-      let dato = mockdata[indexPath.row]
+      let dato = moredata[indexPath.row]
       cell.first_name.text = dato.first_name
       cell.last_name.text = dato.last_name
       cell.email.text = dato.email
+      cell.row = indexPath.row
       return cell
+   }
+   
+   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+      guard let zelda = sender as? CollectionViewZelda, let destination = segue.destination as? Table3DetalleViewController else {
+         return
+      }
+      destination.row = zelda.row
+   }
+   
+   @IBAction func salidaColeccion(segue:UIStoryboardSegue) {
+      if segue.identifier == "grabar", let source = segue.source as? Table3DetalleViewController, let row = source.row {
+         let index = IndexPath(item: row, section: 0)
+         collectionView.reloadItems(at: [index])
+      }
    }
    
    // MARK: UICollectionViewDelegate

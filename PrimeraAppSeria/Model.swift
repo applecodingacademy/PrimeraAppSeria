@@ -20,7 +20,7 @@ struct MockData:Codable {
 }
 
 struct MoreData:Codable {
-   let username:String
+   var username:String
    var first_name:String
    var last_name:String
    var email:String
@@ -40,6 +40,7 @@ func loadData() {
       let rawData = try Data(contentsOf: rutaFinal)
       let decoder = JSONDecoder()
       mockdata = try decoder.decode([MockData].self, from: rawData)
+      
    } catch {
       print("Error \(error)")
    }
@@ -54,7 +55,7 @@ func saveData() {
    }
    do {
       let encoder = JSONEncoder()
-      let rawData = try encoder.encode(moredata)
+      let rawData = try encoder.encode(mockdata)
       try rawData.write(to: ruta, options: .atomicWrite)
    } catch {
       print("Error \(error)")
