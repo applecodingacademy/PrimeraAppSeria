@@ -8,7 +8,7 @@
 
 import UIKit
 
-class Table3DetalleViewController: UITableViewController {
+class Table3DetalleViewController: UITableViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
    @IBOutlet weak var username: UITextField!
    @IBOutlet weak var nombre: UITextField!
    @IBOutlet weak var apellidos: UITextField!
@@ -84,6 +84,23 @@ class Table3DetalleViewController: UITableViewController {
    }
    
    @IBAction func cambiarFoto(_ sender: UIButton) {
-      
+      let picker = UIImagePickerController()
+      picker.delegate = self
+      picker.sourceType = .photoLibrary
+      if let types = UIImagePickerController.availableMediaTypes(for: .photoLibrary) {
+         picker.mediaTypes = types
+      }
+      present(picker, animated: true, completion: nil)
+   }
+   
+   func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+      picker.dismiss(animated: true, completion: nil)
+   }
+   
+   func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+      if let image = info[.originalImage] as? UIImage {
+         imagen.image = image.resizeImage(newWidth: 256)
+      }
+      picker.dismiss(animated: true, completion: nil)
    }
 }

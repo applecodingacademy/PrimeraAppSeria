@@ -41,7 +41,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>LSApplicationCategoryType</key>
-	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>Quiero acceder a hacer una foto para sustituir la de la ficha de empleados.</string>
 </dict>
 </plist>
