@@ -37,30 +37,15 @@ class Tabla1ViewController: UITableViewController {
       cell.textLabel?.text = "\(datos.last_name), \(datos.first_name)"
       cell.detailTextLabel?.text = datos.email
       cell.imageView?.image = UIImage(named: "apple")
-      
-      let session = URLSession.shared
-      let tarea = session.dataTask(with: datos.avatar) {
-         (data:Data?, response:URLResponse?, error:Error?) in
-         guard let data = data, let response = response as? HTTPURLResponse, error == nil else {
-            if let error = error {
-               print("Error de red: \(error)")
-            }
-            return
-         }
-         if response.statusCode == 200 {
-            let imagen = UIImage(data: data)
-            DispatchQueue.main.async {
-               if let visibles = self.tableView.indexPathsForVisibleRows {
-                  if visibles.contains(indexPath) {
-                     cell.imageView?.image = imagen
-                  }
+      recuperarImagen(url: datos.avatar) { imagen in
+         DispatchQueue.main.async {
+            if let visibles = self.tableView.indexPathsForVisibleRows {
+               if visibles.contains(indexPath) {
+                  cell.imageView?.image = imagen
                }
             }
-         } else {
-            print("Error de código \(response.statusCode)")
          }
       }
-      tarea.resume()
       return cell
    }
    

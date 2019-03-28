@@ -16,6 +16,7 @@ class Table3DetalleViewController: UITableViewController {
    @IBOutlet weak var puesto: UITextField!
    @IBOutlet weak var direccion: UITextField!
    @IBOutlet weak var ciudad: UITextField!
+   @IBOutlet weak var imagen: UIImageView!
    var row:Int?
    
    override func viewDidLoad() {
@@ -80,5 +81,9 @@ class Table3DetalleViewController: UITableViewController {
             performSegue(withIdentifier: "grabar", sender: nil)
          }
       }
+   }
+   
+   @IBAction func cambiarFoto(_ sender: UIButton) {
+      
    }
 }
