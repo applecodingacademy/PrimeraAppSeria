@@ -15,18 +15,15 @@ class SplitViewController: UIViewController {
    override func viewDidLoad() {
         super.viewDidLoad()
 
-        // Do any additional setup after loading the view.
+      NotificationCenter.default.addObserver(forName: NSNotification.Name("TOCO"), object: nil, queue: OperationQueue.main) { [weak self] notification in
+         if let datos = notification.userInfo as? [String:Int], let row = datos["ROW"] {
+            self?.testEtiqueta.text = "\(row)"
+         }
+      }
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
+   
+   deinit {
+      NotificationCenter.default.removeObserver(self, name: NSNotification.Name("TOCO"), object: nil)
+   }
 
 }

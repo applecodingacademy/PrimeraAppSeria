@@ -17,6 +17,10 @@ class Tabla1ViewController: UITableViewController {
       loadData()
       self.clearsSelectionOnViewWillAppear = false
       self.navigationItem.rightBarButtonItem = self.editButtonItem
+      
+      if UIDevice.current.userInterfaceIdiom == .pad {
+         NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": 0])
+      }
    }
    
    // MARK: - Table view data source
