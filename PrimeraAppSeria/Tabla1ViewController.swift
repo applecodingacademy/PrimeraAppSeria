@@ -37,11 +37,16 @@ class Tabla1ViewController: UITableViewController {
       cell.textLabel?.text = "\(datos.last_name), \(datos.first_name)"
       cell.detailTextLabel?.text = datos.email
       cell.imageView?.image = UIImage(named: "apple")
-      recuperarImagen(url: datos.avatar) { imagen in
-         DispatchQueue.main.async {
-            if let visibles = self.tableView.indexPathsForVisibleRows {
-               if visibles.contains(indexPath) {
-                  cell.imageView?.image = imagen
+      if let imagen = cargarImagen(file: "tab_\(indexPath.row)") {
+         cell.imageView?.image = imagen
+      } else {
+         recuperarImagen(url: datos.avatar) { imagen in
+            DispatchQueue.main.async {
+               if let visibles = self.tableView.indexPathsForVisibleRows {
+                  if visibles.contains(indexPath) {
+                     cell.imageView?.image = imagen
+                  }
+                  grabarImagen(imagen: imagen, file: "tab_\(indexPath.row)")
                }
             }
          }
@@ -70,6 +75,12 @@ class Tabla1ViewController: UITableViewController {
    // Override to support conditional rearranging of the table view.
    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
       return true
+   }
+   
+   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+      if UIDevice.current.userInterfaceIdiom == .pad {
+         NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": indexPath.row])
+      }
    }
    
    // MARK: - Navigation

@@ -17,6 +17,8 @@
 		5A938EC322490452006BF5BC /* Table3DetalleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A938EC222490452006BF5BC /* Table3DetalleViewController.swift */; };
 		5A99662B224CF773003E04CE /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A99662A224CF773003E04CE /* Extension.swift */; };
 		5AB3D542224A503E0089B22F /* Network.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AB3D541224A503E0089B22F /* Network.swift */; };
+		5AC2C0EB224E3AA30074B867 /* Main-iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AC2C0EA224E3AA30074B867 /* Main-iPad.storyboard */; };
+		5AC2C0ED224E41580074B867 /* SplitViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC2C0EC224E41580074B867 /* SplitViewController.swift */; };
 		5ADD20B922425C9200D210CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD20B822425C9200D210CF /* AppDelegate.swift */; };
 		5ADD20BE22425C9200D210CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5ADD20BC22425C9200D210CF /* Main.storyboard */; };
 		5ADD20C022425CA900D210CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5ADD20BF22425CA900D210CF /* Assets.xcassets */; };
@@ -37,6 +39,8 @@
 		5A938EC222490452006BF5BC /* Table3DetalleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table3DetalleViewController.swift; sourceTree = "<group>"; };
 		5A99662A224CF773003E04CE /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		5AB3D541224A503E0089B22F /* Network.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Network.swift; sourceTree = "<group>"; };
+		5AC2C0EA224E3AA30074B867 /* Main-iPad.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Main-iPad.storyboard"; sourceTree = "<group>"; };
+		5AC2C0EC224E41580074B867 /* SplitViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplitViewController.swift; sourceTree = "<group>"; };
 		5ADD20B522425C9200D210CF /* PrimeraAppSeria.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PrimeraAppSeria.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5ADD20B822425C9200D210CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		5ADD20BD22425C9200D210CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -80,6 +84,8 @@
 			children = (
 				5ADD20B822425C9200D210CF /* AppDelegate.swift */,
 				5ADD20BC22425C9200D210CF /* Main.storyboard */,
+				5AC2C0EA224E3AA30074B867 /* Main-iPad.storyboard */,
+				5AC2C0EC224E41580074B867 /* SplitViewController.swift */,
 				5A938EC222490452006BF5BC /* Table3DetalleViewController.swift */,
 				5A99662A224CF773003E04CE /* Extension.swift */,
 				5AB3D541224A503E0089B22F /* Network.swift */,
@@ -164,6 +170,7 @@
 				5A8888472244DC9600A1556E /* MORE_DATA.json in Resources */,
 				5ADD20C022425CA900D210CF /* Assets.xcassets in Resources */,
 				5ADD20BE22425C9200D210CF /* Main.storyboard in Resources */,
+				5AC2C0EB224E3AA30074B867 /* Main-iPad.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,6 +190,7 @@
 				5AB3D542224A503E0089B22F /* Network.swift in Sources */,
 				5A88884B2245036D00A1556E /* CollectionViewZelda.swift in Sources */,
 				5A6C55F12243B1FF00A07D83 /* Helper.swift in Sources */,
+				5AC2C0ED224E41580074B867 /* SplitViewController.swift in Sources */,
 				5ADD20B922425C9200D210CF /* AppDelegate.swift in Sources */,
 				5A8888452244DA0500A1556E /* Table2ViewController.swift in Sources */,
 				5ADD20CB22425F7C00D210CF /* Tabla1ViewController.swift in Sources */,

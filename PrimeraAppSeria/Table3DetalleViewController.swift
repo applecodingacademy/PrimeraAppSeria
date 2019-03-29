@@ -98,8 +98,9 @@ class Table3DetalleViewController: UITableViewController, UIImagePickerControlle
    }
    
    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-      if let image = info[.originalImage] as? UIImage {
-         imagen.image = image.resizeImage(newWidth: 256)
+      if let image = info[.originalImage] as? UIImage, let resizedImage = image.resizeImage(newWidth: 256) {
+         imagen.image = resizedImage
+         grabarImagen(imagen: resizedImage, file: "col_\(row ?? 0)")
       }
       picker.dismiss(animated: true, completion: nil)
    }

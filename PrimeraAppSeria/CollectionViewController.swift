@@ -36,10 +36,15 @@ class CollectionViewController: UICollectionViewController {
       cell.last_name.text = dato.last_name
       cell.email.text = dato.email
       cell.row = indexPath.row
-      recuperarImagen(url: dato.avatar) { imagen in
-         DispatchQueue.main.async {
-            if self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
-               cell.imagen.image = imagen
+      if let imagen = cargarImagen(file: "col_\(indexPath.row)") {
+         cell.imagen.image = imagen
+      } else {
+         recuperarImagen(url: dato.avatar) { imagen in
+            DispatchQueue.main.async {
+               if self.collectionView.indexPathsForVisibleItems.contains(indexPath) {
+                  cell.imagen.image = imagen
+                  grabarImagen(imagen: imagen, file: "col_\(indexPath.row)")
+               }
             }
          }
       }

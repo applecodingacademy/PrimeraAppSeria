@@ -6,7 +6,7 @@
 //  Copyright © 2019 Dev1. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 var mockdata:[MockData] = []
 var moredata:[MoreData] = []
@@ -92,4 +92,35 @@ func saveDataMore() {
       print("Error \(error)")
    }
 }
+
+func grabarImagen(imagen:UIImage, file:String) {
+   guard let ruta = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(file).appendingPathExtension("png") else {
+      return
+   }
+   if FileManager.default.fileExists(atPath: ruta.path) {
+      try? FileManager.default.removeItem(at: ruta)
+   }
+   do {
+      let imagenData = imagen.pngData()
+      try imagenData?.write(to: ruta, options: .atomicWrite)
+   } catch {
+      print("Error al grabar la imagen \(error)")
+   }
+}
+
+func cargarImagen(file:String) -> UIImage? {
+   guard let ruta = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first?.appendingPathComponent(file).appendingPathExtension("png") else {
+      return nil
+   }
+   do {
+      if FileManager.default.fileExists(atPath: ruta.path) {
+         let imagenRaw = try Data(contentsOf: ruta)
+         return UIImage(data: imagenRaw)
+      }
+   } catch {
+      print("Error recuperación la imagen \(error)")
+   }
+   return nil
+}
+
 

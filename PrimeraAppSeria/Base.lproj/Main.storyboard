@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Geh-lj-VQX">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Geh-lj-VQX">
     <device id="retina6_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -46,7 +46,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="Jrl-cm-5bN" kind="show" identifier="detalle" trigger="accessoryAction" id="aYv-hg-WEN">
+                                    <segue destination="Jrl-cm-5bN" kind="push" identifier="detalle" trigger="accessoryAction" id="aYv-hg-WEN">
                                         <segue key="commit" inheritsFrom="parent" id="u4v-bR-PQF"/>
                                         <segue key="preview" inheritsFrom="commit" id="TLF-of-Xlc"/>
                                     </segue>
@@ -63,7 +63,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eyL-oy-nsM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2759.1999999999998" y="98.50074962518741"/>
+            <point key="canvasLocation" x="2452" y="147"/>
         </scene>
         <!--Detalle-->
         <scene sceneID="GoX-Ty-GfR">
@@ -225,7 +225,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rza-yF-HPe" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="bct-cr-cG7" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3559.1999999999998" y="98.50074962518741"/>
+            <point key="canvasLocation" x="3190" y="147"/>
         </scene>
         <!--Celdas to'guapas-->
         <scene sceneID="LPI-nI-9uo">
@@ -333,7 +333,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="sev-79-jR8" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2757.5999999999999" y="-612.14392803598207"/>
+            <point key="canvasLocation" x="2223" y="-905"/>
         </scene>
         <!--Personas-->
         <scene sceneID="q6d-eB-roN">
@@ -352,7 +352,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SXF-Mu-t06" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1972" y="98.50074962518741"/>
+            <point key="canvasLocation" x="1765" y="147"/>
         </scene>
         <!--Colección-->
         <scene sceneID="paM-8v-8ho">
@@ -424,7 +424,7 @@
                                     <outlet property="first_name" destination="dJe-Hp-iH1" id="LB4-P2-Kbi"/>
                                     <outlet property="imagen" destination="Af0-Gy-dSc" id="2jU-iR-PKp"/>
                                     <outlet property="last_name" destination="EE8-BO-jC6" id="Opu-LP-cGY"/>
-                                    <segue destination="1Ru-jt-FeI" kind="show" id="5TL-Gs-gia"/>
+                                    <segue destination="1Ru-jt-FeI" kind="push" id="5TL-Gs-gia"/>
                                 </connections>
                             </collectionViewCell>
                         </cells>
@@ -437,7 +437,7 @@
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1uT-2S-1Ch" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2759" y="839"/>
+            <point key="canvasLocation" x="2110" y="1253"/>
         </scene>
         <!--Detalle-->
         <scene sceneID="4BM-iC-TJ7">
@@ -737,7 +737,7 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nVR-wO-Yam" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <exit id="XTf-pV-Kkl" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="3555.072463768116" y="839.0625"/>
+            <point key="canvasLocation" x="2864" y="1260"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="8zj-q9-9I2">
@@ -757,7 +757,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W9s-q6-rl0" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1118" y="99"/>
+            <point key="canvasLocation" x="778" y="147"/>
         </scene>
         <!--Item-->
         <scene sceneID="4CQ-3a-8Se">
@@ -776,7 +776,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4sn-MI-8Sj" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1972" y="-612"/>
+            <point key="canvasLocation" x="1360.6799999999998" y="-913.92000000000007"/>
         </scene>
         <!--Zeldas-->
         <scene sceneID="lZi-ek-j5O">
@@ -795,7 +795,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JkH-6N-8cw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1972" y="839"/>
+            <point key="canvasLocation" x="1360.6799999999998" y="1252.9066666666668"/>
         </scene>
     </scenes>
     <resources>
