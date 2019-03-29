@@ -20,6 +20,7 @@ class Tabla1ViewController: UITableViewController {
       
       if UIDevice.current.userInterfaceIdiom == .pad {
          NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": 0])
+         tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
       }
    }
    
