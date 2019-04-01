@@ -8,9 +8,26 @@
 
 import UIKit
 
+protocol DatoSeleccionado:class {
+   func seleccionado(_ newPersona:MockData)
+}
+
 class Tabla1ViewController: UITableViewController {
    
    var variable:Int = 0
+   weak var delegate:DatoSeleccionado?
+   
+   override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+      if UIDevice.current.userInterfaceIdiom == .pad {
+         guard let registro0 = mockdata.first else {
+            return
+         }
+         delegate?.seleccionado(registro0)
+         let indexInicio = IndexPath(row: 0, section: 0)
+         tableView.selectRow(at: indexInicio, animated: false, scrollPosition: .none)
+      }
+   }
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -19,8 +36,13 @@ class Tabla1ViewController: UITableViewController {
       self.navigationItem.rightBarButtonItem = self.editButtonItem
       
       if UIDevice.current.userInterfaceIdiom == .pad {
-         NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": 0])
-         tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
+//         NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": 0])
+//         tableView.selectRow(at: IndexPath(row: 0, section: 0), animated: false, scrollPosition: .none)
+         
+         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate, let splitView = appDelegate.window?.rootViewController as? UISplitViewController, let navigation = splitView.viewControllers.last as? UINavigationController, let detalle = navigation.topViewController as? SplitViewController else {
+            return
+         }
+         delegate = detalle
       }
    }
    
@@ -84,7 +106,9 @@ class Tabla1ViewController: UITableViewController {
    
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       if UIDevice.current.userInterfaceIdiom == .pad {
-         NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": indexPath.row])
+         //NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": indexPath.row])
+         let dato = mockdata[indexPath.row]
+         delegate?.seleccionado(dato)
       }
    }
    
