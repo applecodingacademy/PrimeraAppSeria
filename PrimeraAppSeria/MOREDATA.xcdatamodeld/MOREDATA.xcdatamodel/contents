@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.98" systemVersion="18E226" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Ciudades" representedClassName="Ciudades" syncable="YES" codeGenerationType="class">
+        <attribute name="ciudad" attributeType="String" syncable="YES"/>
+        <relationship name="personas" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Personas" inverseName="ciudad" inverseEntity="Personas" syncable="YES"/>
+    </entity>
+    <entity name="Personas" representedClassName="Personas" syncable="YES" codeGenerationType="class">
+        <attribute name="apellidos" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="avatarURL" optional="YES" attributeType="URI" syncable="YES"/>
+        <attribute name="direccion" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="email" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imagen" optional="YES" attributeType="Binary" allowsExternalBinaryDataStorage="YES" syncable="YES"/>
+        <attribute name="nombre" attributeType="String" syncable="YES"/>
+        <attribute name="userName" attributeType="String" syncable="YES"/>
+        <relationship name="ciudad" maxCount="1" deletionRule="Deny" destinationEntity="Ciudades" inverseName="personas" inverseEntity="Ciudades" syncable="YES"/>
+        <relationship name="puesto" maxCount="1" deletionRule="Deny" destinationEntity="Puestos" inverseName="personas" inverseEntity="Puestos" syncable="YES"/>
+    </entity>
+    <entity name="Puestos" representedClassName="Puestos" syncable="YES" codeGenerationType="class">
+        <attribute name="puesto" attributeType="String" syncable="YES"/>
+        <relationship name="personas" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="Personas" inverseName="puesto" inverseEntity="Personas" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Personas" positionX="-63" positionY="-18" width="128" height="180"/>
+        <element name="Puestos" positionX="-54" positionY="45" width="128" height="75"/>
+        <element name="Ciudades" positionX="-36" positionY="72" width="128" height="75"/>
+    </elements>
+</model>

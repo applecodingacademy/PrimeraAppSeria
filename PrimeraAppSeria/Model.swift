@@ -7,6 +7,31 @@
 //
 
 import UIKit
+import CoreData
+
+var persistentContainer:NSPersistentContainer = {
+   let container = NSPersistentContainer(name: "MOREDATA")
+   container.loadPersistentStores { storeDescripcion, error in
+      if let error = error as NSError? {
+         fatalError("No se ha podido abrir la BD")
+      }
+   }
+   return container
+}()
+
+var ctx:NSManagedObjectContext {
+   return persistentContainer.viewContext
+}
+
+func saveContext() {
+   if ctx.hasChanges {
+      do {
+         try ctx.save()
+      } catch {
+         print("Error en el commit")
+      }
+   }
+}
 
 var mockdata:[MockData] = []
 var moredata:[MoreData] = []
@@ -71,7 +96,44 @@ func loadDataMore() {
    do {
       let rawData = try Data(contentsOf: rutaFinal)
       let decoder = JSONDecoder()
-      moredata = try decoder.decode([MoreData].self, from: rawData)
+      let cargaMore = try decoder.decode([MoreData].self, from: rawData)
+      for carga in cargaMore {
+         let consulta:NSFetchRequest<Personas> = Personas.fetchRequest()
+         consulta.predicate = NSPredicate(format: "userName = %@", carga.username)
+         let count = try ctx.count(for: consulta)
+         if count == 0 {
+            let newPersonas = Personas(context: ctx)
+            newPersonas.userName = carga.username
+            newPersonas.nombre = carga.first_name
+            newPersonas.apellidos = carga.last_name
+            newPersonas.email = carga.email
+            newPersonas.direccion = carga.address
+            newPersonas.avatarURL = carga.avatar
+            
+            let consultaPuesto:NSFetchRequest<Puestos> = Puestos.fetchRequest()
+            consultaPuesto.predicate = NSPredicate(format: "puesto = %@", argumentArray: [carga.jobtitle])
+            let fetchPuesto = try ctx.fetch(consultaPuesto)
+            if fetchPuesto.count > 0 {
+               newPersonas.puesto = fetchPuesto.first
+            } else {
+               let newPuesto = Puestos(context: ctx)
+               newPuesto.puesto = carga.jobtitle
+               newPersonas.puesto = newPuesto
+            }
+            
+            let consultaCiudad:NSFetchRequest<Ciudades> = Ciudades.fetchRequest()
+            consultaCiudad.predicate = NSPredicate(format: "ciudad = %@", argumentArray: [carga.city])
+            let fetchCiudad = try ctx.fetch(consultaCiudad)
+            if fetchCiudad.count > 0 {
+               newPersonas.ciudad = fetchCiudad.first
+            } else {
+               let newCiudad = Ciudades(context: ctx)
+               newCiudad.ciudad = carga.city
+               newPersonas.ciudad = newCiudad
+            }
+         }
+      }
+      saveContext()
    } catch {
       print("Error \(error)")
    }

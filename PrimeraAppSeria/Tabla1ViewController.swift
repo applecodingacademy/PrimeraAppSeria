@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import CoreData
 
 protocol DatoSeleccionado:class {
    func seleccionado(_ newPersona:MockData)
@@ -16,6 +17,15 @@ class Tabla1ViewController: UITableViewController {
    
    var variable:Int = 0
    weak var delegate:DatoSeleccionado?
+   
+   var consultaTabla:NSFetchedResultsController<Personas> = {
+      let fetchRequest:NSFetchRequest<Personas> = Personas.fetchRequest()
+      let ordenApellidos = NSSortDescriptor(key: "apellidos", ascending: true)
+      let ordenNombre = NSSortDescriptor(key: "nombre", ascending: true)
+      fetchRequest.sortDescriptors = [ordenApellidos, ordenNombre]
+      let result = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: ctx, sectionNameKeyPath: #keyPath(Personas.puesto.puesto), cacheName: nil)
+      return result
+   }()
    
    override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
@@ -31,7 +41,6 @@ class Tabla1ViewController: UITableViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      loadData()
       self.clearsSelectionOnViewWillAppear = false
       self.navigationItem.rightBarButtonItem = self.editButtonItem
       
@@ -43,37 +52,48 @@ class Tabla1ViewController: UITableViewController {
             return
          }
          delegate = detalle
+         reload()
+      }
+   }
+   
+   func reload() {
+      do {
+         try consultaTabla.performFetch()
+      } catch {
+         print("Error en la consulta")
       }
    }
    
    // MARK: - Table view data source
    
    override func numberOfSections(in tableView: UITableView) -> Int {
-      return 1
+      return consultaTabla.sections?.count ?? 0
    }
    
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      return mockdata.count
+      return consultaTabla.sections?[section].numberOfObjects ?? 0
    }
    
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       let cell = tableView.dequeueReusableCell(withIdentifier: "zelda", for: indexPath)
       
-      let datos = mockdata[indexPath.row]
+      let datos = consultaTabla.object(at: indexPath)
       
-      cell.textLabel?.text = "\(datos.last_name), \(datos.first_name)"
+      cell.textLabel?.text = "\(datos.apellidos ?? ""), \(datos.nombre ?? "")"
       cell.detailTextLabel?.text = datos.email
       cell.imageView?.image = UIImage(named: "apple")
       if let imagen = cargarImagen(file: "tab_\(indexPath.row)") {
          cell.imageView?.image = imagen
       } else {
-         recuperarImagen(url: datos.avatar) { imagen in
-            DispatchQueue.main.async {
-               if let visibles = self.tableView.indexPathsForVisibleRows {
-                  if visibles.contains(indexPath) {
-                     cell.imageView?.image = imagen
+         if let avatarURL = datos.avatarURL {
+            recuperarImagen(url: avatarURL) { imagen in
+               DispatchQueue.main.async {
+                  if let visibles = self.tableView.indexPathsForVisibleRows {
+                     if visibles.contains(indexPath) {
+                        cell.imageView?.image = imagen
+                     }
+                     grabarImagen(imagen: imagen, file: "tab_\(indexPath.row)")
                   }
-                  grabarImagen(imagen: imagen, file: "tab_\(indexPath.row)")
                }
             }
          }
@@ -110,6 +130,10 @@ class Tabla1ViewController: UITableViewController {
          let dato = mockdata[indexPath.row]
          delegate?.seleccionado(dato)
       }
+   }
+   
+   override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+      return consultaTabla.sections?[section].name ?? ""
    }
    
    // MARK: - Navigation

@@ -26,6 +26,7 @@
 		5ADD20CB22425F7C00D210CF /* Tabla1ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD20CA22425F7C00D210CF /* Tabla1ViewController.swift */; };
 		5ADD20CD224268A500D210CF /* MOCK_DATA.json in Resources */ = {isa = PBXBuildFile; fileRef = 5ADD20CC224268A500D210CF /* MOCK_DATA.json */; };
 		5ADD20CF224268C600D210CF /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5ADD20CE224268C600D210CF /* Model.swift */; };
+		5ADFE7D122535188002C9AD9 /* MOREDATA.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 5ADFE7CF22535188002C9AD9 /* MOREDATA.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +51,7 @@
 		5ADD20CA22425F7C00D210CF /* Tabla1ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabla1ViewController.swift; sourceTree = "<group>"; };
 		5ADD20CC224268A500D210CF /* MOCK_DATA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MOCK_DATA.json; sourceTree = "<group>"; };
 		5ADD20CE224268C600D210CF /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		5ADFE7D022535188002C9AD9 /* MOREDATA.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = MOREDATA.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,6 +87,7 @@
 				5ADD20B822425C9200D210CF /* AppDelegate.swift */,
 				5ADD20BC22425C9200D210CF /* Main.storyboard */,
 				5AC2C0EA224E3AA30074B867 /* Main-iPad.storyboard */,
+				5ADFE7CF22535188002C9AD9 /* MOREDATA.xcdatamodeld */,
 				5AC2C0EC224E41580074B867 /* SplitViewController.swift */,
 				5A938EC222490452006BF5BC /* Table3DetalleViewController.swift */,
 				5A99662A224CF773003E04CE /* Extension.swift */,
@@ -191,6 +194,7 @@
 				5A88884B2245036D00A1556E /* CollectionViewZelda.swift in Sources */,
 				5A6C55F12243B1FF00A07D83 /* Helper.swift in Sources */,
 				5AC2C0ED224E41580074B867 /* SplitViewController.swift in Sources */,
+				5ADFE7D122535188002C9AD9 /* MOREDATA.xcdatamodeld in Sources */,
 				5ADD20B922425C9200D210CF /* AppDelegate.swift in Sources */,
 				5A8888452244DA0500A1556E /* Table2ViewController.swift in Sources */,
 				5ADD20CB22425F7C00D210CF /* Tabla1ViewController.swift in Sources */,
@@ -393,6 +397,19 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		5ADFE7CF22535188002C9AD9 /* MOREDATA.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				5ADFE7D022535188002C9AD9 /* MOREDATA.xcdatamodel */,
+			);
+			currentVersion = 5ADFE7D022535188002C9AD9 /* MOREDATA.xcdatamodel */;
+			path = MOREDATA.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 5ADD20AD22425C9200D210CF /* Project object */;
 }
