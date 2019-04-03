@@ -22,7 +22,8 @@ class Tabla1ViewController: UITableViewController {
       let fetchRequest:NSFetchRequest<Personas> = Personas.fetchRequest()
       let ordenApellidos = NSSortDescriptor(key: "apellidos", ascending: true)
       let ordenNombre = NSSortDescriptor(key: "nombre", ascending: true)
-      fetchRequest.sortDescriptors = [ordenApellidos, ordenNombre]
+      let ordenPuesto = NSSortDescriptor(key: #keyPath(Personas.puesto.puesto), ascending: true)
+      fetchRequest.sortDescriptors = [ordenPuesto, ordenApellidos, ordenNombre]
       let result = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: ctx, sectionNameKeyPath: #keyPath(Personas.puesto.puesto), cacheName: nil)
       return result
    }()
@@ -51,6 +52,14 @@ class Tabla1ViewController: UITableViewController {
          }
          delegate = detalle
          reload()
+         NotificationCenter.default.addObserver(forName: NSNotification.Name("SAVEDETALLE"), object: nil, queue: OperationQueue.main) { notification in
+            self.reload()
+            self.tableView.reloadData()
+            if let userInfo = notification.userInfo, let persona = userInfo["DatoGrabado"] as? Personas, let index = self.consultaTabla.indexPath(forObject: persona) {
+               self.tableView.scrollToRow(at: index, at: .middle, animated: false)
+               self.tableView.selectRow(at: index, animated: false, scrollPosition: .middle)
+            }
+         }
       }
    }
    
