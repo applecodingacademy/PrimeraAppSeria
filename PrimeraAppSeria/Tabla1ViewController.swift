@@ -10,7 +10,7 @@ import UIKit
 import CoreData
 
 protocol DatoSeleccionado:class {
-   func seleccionado(_ newPersona:MockData)
+   func seleccionado(_ newPersona:Personas)
 }
 
 class Tabla1ViewController: UITableViewController {
@@ -30,12 +30,10 @@ class Tabla1ViewController: UITableViewController {
    override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(animated)
       if UIDevice.current.userInterfaceIdiom == .pad {
-         guard let registro0 = mockdata.first else {
-            return
-         }
-         delegate?.seleccionado(registro0)
          let indexInicio = IndexPath(row: 0, section: 0)
          tableView.selectRow(at: indexInicio, animated: false, scrollPosition: .none)
+         let dato = consultaTabla.object(at: indexInicio)
+         delegate?.seleccionado(dato)
       }
    }
    
@@ -82,7 +80,7 @@ class Tabla1ViewController: UITableViewController {
       cell.textLabel?.text = "\(datos.apellidos ?? ""), \(datos.nombre ?? "")"
       cell.detailTextLabel?.text = datos.email
       cell.imageView?.image = UIImage(named: "apple")
-      if let imagen = cargarImagen(file: "tab_\(indexPath.row)") {
+      if let datosImagen = datos.imagen, let imagen = UIImage(data: datosImagen) {
          cell.imageView?.image = imagen
       } else {
          if let avatarURL = datos.avatarURL {
@@ -92,7 +90,8 @@ class Tabla1ViewController: UITableViewController {
                      if visibles.contains(indexPath) {
                         cell.imageView?.image = imagen
                      }
-                     grabarImagen(imagen: imagen, file: "tab_\(indexPath.row)")
+                     datos.imagen = imagen.pngData()
+                     saveContext()
                   }
                }
             }
@@ -127,7 +126,7 @@ class Tabla1ViewController: UITableViewController {
    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
       if UIDevice.current.userInterfaceIdiom == .pad {
          //NotificationCenter.default.post(name: NSNotification.Name("TOCO"), object: nil, userInfo: ["ROW": indexPath.row])
-         let dato = mockdata[indexPath.row]
+         let dato = consultaTabla.object(at: indexPath)
          delegate?.seleccionado(dato)
       }
    }

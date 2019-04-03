@@ -24,11 +24,35 @@ var ctx:NSManagedObjectContext {
 }
 
 func saveContext() {
-   if ctx.hasChanges {
-      do {
-         try ctx.save()
-      } catch {
-         print("Error en el commit")
+   DispatchQueue.main.async {
+      if ctx.hasChanges {
+         do {
+            try ctx.save()
+         } catch {
+            print("Error en el commit")
+         }
+      }
+   }
+}
+
+func saveImageBackground(dato:Personas, imagen:UIImage) {
+   let contextBG = persistentContainer.newBackgroundContext()
+   contextBG.parent = ctx
+   contextBG.perform {
+      if let object = contextBG.object(with: dato.objectID) as? Personas {
+         object.imagen = imagen.pngData()
+         do {
+            try contextBG.save()
+         } catch {
+            print("Error en el background \(error)")
+         }
+         ctx.performAndWait {
+            do {
+               try ctx.save()
+            } catch {
+               print("Error en el background \(error)")
+            }
+         }
       }
    }
 }

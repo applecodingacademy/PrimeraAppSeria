@@ -14,6 +14,9 @@ class SplitViewController: UIViewController, DatoSeleccionado {
    @IBOutlet weak var apellidos: UITextField!
    @IBOutlet weak var email: UITextField!
    @IBOutlet weak var imagen: UIImageView!
+   @IBOutlet weak var direccion: UITextField!
+   @IBOutlet weak var ciudad: UITextField!
+   @IBOutlet weak var puesto: UITextField!
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -25,17 +28,28 @@ class SplitViewController: UIViewController, DatoSeleccionado {
 //      }
    }
    
-   func seleccionado(_ newPersona: MockData) {
-      nombre.text = newPersona.first_name
-      apellidos.text = newPersona.last_name
+   func seleccionado(_ newPersona: Personas) {
+      nombre.text = newPersona.nombre
+      apellidos.text = newPersona.apellidos
       email.text = newPersona.email
-      imagen.image = cargarImagen(file: "tab_\(newPersona.id - 1)")
+      if let datosImagen = newPersona.imagen {
+         imagen.image = UIImage(data: datosImagen)
+      }
+      direccion.text = newPersona.direccion
+      ciudad.text = newPersona.ciudad?.ciudad
+      puesto.text = newPersona.puesto?.puesto
+   }
+   
+   @IBAction func cambiarImagen(_ sender: UIButton) {
    }
    
    
+   @IBAction func enviarEmail(_ sender: UIButton) {
+   }
    
-   
-//   deinit {
+   @IBAction func compartir(_ sender: UIButton) {
+   }
+   //   deinit {
 //      NotificationCenter.default.removeObserver(self, name: NSNotification.Name("TOCO"), object: nil)
 //   }
 //
