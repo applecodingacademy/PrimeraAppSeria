@@ -23,7 +23,6 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
    @IBOutlet weak var cancelar: UIBarButtonItem!
    @IBOutlet weak var grabar: UIBarButtonItem!
    
-   var seleccionDesplegada = false
    var puestos:[Puestos] = []
    var valorSeleccionado = -1
    var personaSeleccionada:Personas?
@@ -59,6 +58,8 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       personaSeleccionada = newPersona
       if puesto.isFirstResponder {
          puesto.resignFirstResponder()
+         cancelar.isEnabled = true
+         grabar.isEnabled = true
       }
    }
    
@@ -66,7 +67,6 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       let picker = UIPickerView()
       picker.delegate = self
       picker.dataSource = self
-      picker.translatesAutoresizingMaskIntoConstraints = false
 
       sender.inputView = picker
       let toolbar = UIToolbar()
@@ -81,8 +81,7 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       toolbar.setItems([doneButton,space,cancelButton], animated: false)
       toolbar.isUserInteractionEnabled = true
       sender.inputAccessoryView = toolbar
-      
-      seleccionDesplegada = true
+   
       for (i,v) in puestos.enumerated() {
          if v.puesto == puesto.text {
             picker.selectRow(i, inComponent: 0, animated: false)
@@ -98,11 +97,15 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       if let puestoText = puesto.text, valorSeleccionado >= 0, let selecPuesto = puestos[valorSeleccionado].puesto, puestoText != selecPuesto {
          puesto.text = selecPuesto
       }
+      cancelar.isEnabled = true
+      grabar.isEnabled = true
    }
    
    @objc func cancelButton(_ sender:UIBarButtonItem) {
       puesto.text = personaSeleccionada?.puesto?.puesto
       puesto.resignFirstResponder()
+      cancelar.isEnabled = true
+      grabar.isEnabled = true
    }
    
    @IBAction func cambiarImagen(_ sender: UIButton) {
@@ -177,6 +180,8 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       if let seleccionada = personaSeleccionada {
          seleccionado(seleccionada)
       }
+      cancelar.isEnabled = true
+      grabar.isEnabled = true
    }
    //   deinit {
 //      NotificationCenter.default.removeObserver(self, name: NSNotification.Name("TOCO"), object: nil)
