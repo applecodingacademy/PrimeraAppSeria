@@ -8,8 +8,9 @@
 
 import UIKit
 import CoreData
+import MessageUI
 
-class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDelegate, UIPickerViewDataSource {
+class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDelegate, UIPickerViewDataSource, MFMailComposeViewControllerDelegate, UITextFieldDelegate {
    
    @IBOutlet weak var nombre: UITextField!
    @IBOutlet weak var apellidos: UITextField!
@@ -18,7 +19,7 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
    @IBOutlet weak var direccion: UITextField!
    @IBOutlet weak var ciudad: UITextField!
    @IBOutlet weak var puesto: UITextField!
-   @IBOutlet weak var botonCambiarPuesto: UIButton!
+   @IBOutlet weak var compartirContacto: UIButton!
    @IBOutlet weak var cancelar: UIBarButtonItem!
    @IBOutlet weak var grabar: UIBarButtonItem!
    
@@ -36,6 +37,7 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       } catch {
          print("Error en la consulta de puestos")
       }
+      puesto.delegate = self
       
 //      NotificationCenter.default.addObserver(forName: NSNotification.Name("TOCO"), object: nil, queue: OperationQueue.main) { [weak self] notification in
 //         if let datos = notification.userInfo as? [String:Int], let row = datos["ROW"] {
@@ -55,53 +57,88 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       ciudad.text = newPersona.ciudad?.ciudad
       puesto.text = newPersona.puesto?.puesto
       personaSeleccionada = newPersona
+      if puesto.isFirstResponder {
+         puesto.resignFirstResponder()
+      }
    }
    
-   @IBAction func cambiarPuesto(_ sender: UIButton) {
-      if !seleccionDesplegada {
-         let picker = UIPickerView()
-         picker.delegate = self
-         picker.dataSource = self
-         picker.translatesAutoresizingMaskIntoConstraints = false
-         picker.tag = 100
-         view.addSubview(picker)
-         NSLayoutConstraint.activate([
-            picker.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
-            picker.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
-            picker.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
-            ])
-         seleccionDesplegada = true
-         botonCambiarPuesto.setTitle("Elegir este puesto", for: .normal)
-         botonCambiarPuesto.setTitleColor(.black, for: .normal)
-         for (i,v) in puestos.enumerated() {
-            if v.puesto == puesto.text {
-               picker.selectRow(i, inComponent: 0, animated: false)
-               break
-            }
+   func cambiarPuesto(_ sender: UITextField) {
+      let picker = UIPickerView()
+      picker.delegate = self
+      picker.dataSource = self
+      picker.translatesAutoresizingMaskIntoConstraints = false
+
+      sender.inputView = picker
+      let toolbar = UIToolbar()
+      toolbar.barStyle = .default
+      toolbar.isTranslucent = true
+      toolbar.tintColor = .gray
+      toolbar.sizeToFit()
+      
+      let doneButton = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(doneButton(_:)))
+      let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+      let cancelButton = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(cancelButton(_:)))
+      toolbar.setItems([doneButton,space,cancelButton], animated: false)
+      toolbar.isUserInteractionEnabled = true
+      sender.inputAccessoryView = toolbar
+      
+      seleccionDesplegada = true
+      for (i,v) in puestos.enumerated() {
+         if v.puesto == puesto.text {
+            picker.selectRow(i, inComponent: 0, animated: false)
+            break
          }
-         grabar.isEnabled = false
-         cancelar.isEnabled = false
-      } else {
-         guard let picker = view.viewWithTag(100) as? UIPickerView else {
-            return
-         }
-         seleccionDesplegada = false
-         picker.removeFromSuperview()
-         botonCambiarPuesto.setTitle("Cambiar de puesto", for: .normal)
-         botonCambiarPuesto.setTitleColor(.blue, for: .normal)
-         grabar.isEnabled = true
-         cancelar.isEnabled = true
       }
+      grabar.isEnabled = false
+      cancelar.isEnabled = false
+   }
+   
+   @objc func doneButton(_ sender:UIBarButtonItem) {
+      puesto.resignFirstResponder()
+      if let puestoText = puesto.text, valorSeleccionado >= 0, let selecPuesto = puestos[valorSeleccionado].puesto, puestoText != selecPuesto {
+         puesto.text = selecPuesto
+      }
+   }
+   
+   @objc func cancelButton(_ sender:UIBarButtonItem) {
+      puesto.text = personaSeleccionada?.puesto?.puesto
+      puesto.resignFirstResponder()
    }
    
    @IBAction func cambiarImagen(_ sender: UIButton) {
    }
    
-   
    @IBAction func enviarEmail(_ sender: UIButton) {
+      if !MFMailComposeViewController.canSendMail() {
+         print("No se pueden enviar emails")
+         return
+      }
+      let controladorEmail = MFMailComposeViewController()
+      if let email = personaSeleccionada?.email {
+         controladorEmail.setToRecipients([email])
+      }
+      controladorEmail.setMessageBody("<p>Hola. Este es un correo de prueba</p><p>Qué <strong>bonito</strong> me ha quedado</p>", isHTML: true)
+      controladorEmail.mailComposeDelegate = self
+      present(controladorEmail, animated: true, completion: nil)
    }
    
    @IBAction func compartir(_ sender: UIButton) {
+      guard let image = imagen.image, let nombre = nombre.text else {
+         return
+      }
+      let activity = UIActivityViewController(activityItems: [image, nombre], applicationActivities: nil)
+      activity.excludedActivityTypes = [.addToReadingList, .mail]
+      activity.completionWithItemsHandler = { (activityType, success, items, error) in
+         if success {
+            print("Compartidos los datos")
+         }
+      }
+      if UIDevice.current.userInterfaceIdiom == .pad {
+         activity.modalPresentationStyle = .popover
+         activity.popoverPresentationController?.sourceRect = compartirContacto.frame
+         activity.popoverPresentationController?.sourceView = self.view
+      }
+      present(activity, animated: true, completion: nil)
    }
    
    @IBAction func save(_ sender: UIBarButtonItem) {
@@ -146,6 +183,10 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
 //   }
 //
    
+   func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
+      controller.dismiss(animated: true, completion: nil)
+   }
+   
    func numberOfComponents(in pickerView: UIPickerView) -> Int {
       return 1
    }
@@ -163,4 +204,7 @@ class SplitViewController: UIViewController, DatoSeleccionado, UIPickerViewDeleg
       puesto.text = puestos[row].puesto
    }
    
+   func textFieldDidBeginEditing(_ textField: UITextField) {
+      cambiarPuesto(textField)
+   }
 }
